@@ -1,0 +1,21 @@
+apiVersion: v1
+data:
+  filebeat.yml: |
+    filebeat.inputs:
+      - type: container
+        paths:
+          - '/var/lib/docker/containers/*/*.log'
+        include_lines: ['remote_addr','body_bytes_sent']
+        exclude_lines: ['\"status\":\"200\"','\"status\":\"301\"','\"status\":\"-\"','\"status\":\"304\"','\"status\":\"206\"','\"status\":\"302\"']
+        tail_files: true
+         
+    output.logstash:
+      hosts: ["172.16.231.190:5044"]
+      timeout: 10
+
+kind: ConfigMap
+metadata:
+  labels:
+    app: flr-filebeat-nginx
+  name: flr-filebeat-nginx-config
+  namespace: flr
