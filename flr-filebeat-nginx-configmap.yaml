@@ -1,6 +1,8 @@
 apiVersion: v1
 data:
   filebeat.yml: |
+    filebeat.registry.path: ${path.data}/registry
+    filebeat.registry.file_permissions: 0640
     filebeat.inputs:
       - type: container
         paths:
@@ -8,6 +10,7 @@ data:
         include_lines: ['remote_addr','body_bytes_sent']
         exclude_lines: ['\"status\":\"200\"','\"status\":\"301\"','\"status\":\"-\"','\"status\":\"304\"','\"status\":\"206\"','\"status\":\"302\"']
         tail_files: true
+        harvester_buffer_size: 65536
          
     output.logstash:
       hosts: ["172.16.231.190:5044"]
