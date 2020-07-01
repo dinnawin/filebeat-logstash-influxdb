@@ -1,0 +1,14 @@
+-----------------------------------json--------------------------------
+
+log_format json '{"time_local":"$time_local",'
+                '"remote_addr":"$remote_addr",'
+                '"request_uri":"$request_uri",'
+                '"status":"$status",'
+                '"body_bytes_sent":$body_bytes_sent,'
+                '"request_time":$request_time,'
+                '"domain":"$host",'
+                '"uri":"$uri",'
+	            '"upstream_addr":"$upstream_addr",'
+                '"upstream_status":"$upstream_status"}';
+			   
+access_log /var/log/nginx/access.log_json json;
